@@ -6,7 +6,7 @@ function get(req,a)
 	local log = require('log')
 	log.info("Received GET request - processing start")
  	local ur = req.uri
-	if ur=="/api/" or ur=="/api" then 
+	if ur=="/kv/" or ur=="/kv" then 
 		log.error("Key is not specified 400")
 		log.info("GET request proccesing end")
 		status = 400
@@ -42,7 +42,7 @@ function post(pack,req)
 	local log = require('log')
 	log.info("Received POST request - processing start")
 	
-	if ur~="/api" and ur~="/api/" then
+	if ur~="/kv" and ur~="/kv/" then
 	    log.error("Invalid url 400")
 	    log.info("POST request processing end - failure")
 	    status = 400
@@ -103,7 +103,7 @@ function put(req,data)
 	log.info("PUT request processing start")
 	
 	local ur = req.uri
-	if ur == "/api/" or ur=="/api" then
+	if ur == "/kv/" or ur=="/kv" then
 	    log.error("Key is not specified 400")
 	    log.info("PUT request processing end - failure")
 	    status = 400    
@@ -140,7 +140,7 @@ function delete(req)
         local log = require('log')
 	log.info("DELETE request processing start")	
 	local ur = req.uri
-	if ur=="/api/" or ur=="/api" then 
+	if ur=="/kv/" or ur=="/kv" then 
 	    log.error("Key is not specified 400")
 	    log.info("DELETE request processing end - failure")
 	    status = 400
