@@ -79,7 +79,7 @@ function post(pack,req)
 	    return status,headers,"409"
 	end
 	box.space.era1:insert{req.key,req.value}
-	box.info("POST request processin end - success")
+	log.info("POST request processin end - success")
         return status,headers,"200"
 	
 	
