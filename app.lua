@@ -1,5 +1,6 @@
+
 function get(req,a)
-	local status = 200
+local status = 200
 	local headers = {
 		['X-Tarantool'] = "FROM_TNT";
 	}
@@ -8,12 +9,18 @@ function get(req,a)
  	local ur = req.uri
 	if ur=="/kv/" or ur=="/kv" then 
 		log.error("Key is not specified 400")
-		log.info("GET request proccesing end")
+		log.info("GET request proccesing end - failure")
 		status = 400
 		return status, headers, "400"
 	end
 	local splited = mysplit(ur,"/")
-
+	
+	if splited[3]~=nil then 
+		log.error("Invalid url 400")
+		log.info("GET request processin end - failure")
+		status = 400
+		return status,headers,"400" 
+	end
 
         local resp = box.space.era1:select{splited[2]}
         if resp[1]==nil then
@@ -111,6 +118,13 @@ function put(req,data)
         end
 	local splited = mysplit(ur,"/")
 	
+	if splited[3]~=nil then
+		log.error("Invalid url 400")
+		log.info("PUT request processing end - failure")
+		status = 400
+		return status,headers,"400"
+	end
+
 	if data.value==nil then
 	    log.error("Value is not specified 400")
 	    log.info("PUT request processing end - failure")
@@ -147,6 +161,13 @@ function delete(req)
 	    return status,headers,"400"
         end
 	local splited = mysplit(ur,"/")
+	
+	if splited[3]~=nil then
+		log.error("Invalid url 400")
+		log.info("DELETE request processing end - failure")
+		status = 400
+		return status,headers,"400"
+	end
 
 	local tr = box.space.era1:select{splited[2]}
 	if tr[1]==nil then
@@ -162,28 +183,10 @@ function delete(req)
 	
 end		
 
-function fodfo(req, a)
-    local status = 200
-    local headers = {
-      ["X-Tarantool"] = "FROM_TNT",
-    }
-    
-   local ur = req.uri
-   local splited = mysplit(ur,"/")
-
-   local body = box.space.era1:select{splited[2]}
-    return status, headers, body
-  end	
-
-function foo(req,a)
-return a
-end
-
-
 box.cfg {
  listen = 3311, -- Specifying the location of Tarantool
 log = 'file:/etc/tarantool/instances.enabled/trylog.txt'
- --log_level = 3	
+--log_level = 3	
 }
 -- Give access
 ---box.once('give_granter2', function()
