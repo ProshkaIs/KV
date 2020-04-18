@@ -43,9 +43,6 @@ function post(pack,req)
  	}
 	local ur = pack.uri
 	
-	
-	 --s = box.schema.create_space('era1', {if_not_exists = true, user = 'guest'})
-        -- s:create_index("I",{unique=true,parts={{field=1,type='string'}}})
 	local log = require('log')
 	log.info("Received POST request - processing start")
 	
@@ -184,12 +181,6 @@ function delete(req)
 end		
 
 box.cfg {
- listen = 3311, -- Specifying the location of Tarantool
+ listen = 3311,
 log = 'file:/etc/tarantool/instances.enabled/trylog.txt'
---log_level = 3	
 }
--- Give access
----box.once('give_granter2', function()
- -- print("GRANTED") 
-  --box.schema.user.grant('guest', 'read,write,execute,create,update,delete', 'universe')            
---end)
