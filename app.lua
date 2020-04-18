@@ -1,6 +1,6 @@
 
 function get(req,a)
-local status = 200
+	local status = 200
 	local headers = {
 		['X-Tarantool'] = "FROM_TNT";
 	}
