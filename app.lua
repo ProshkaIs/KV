@@ -181,7 +181,7 @@ function delete(req)
 end		
 
 box.cfg {
- listen = 3311,
+listen = 3311,
 log = 'file:/etc/tarantool/instances.enabled/trylog.txt'
 }
 
