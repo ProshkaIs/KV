@@ -184,3 +184,9 @@ box.cfg {
  listen = 3311,
 log = 'file:/etc/tarantool/instances.enabled/trylog.txt'
 }
+
+
+box.once('init', function()
+        box.schema.create_space('era1')
+        box.space.era1:create_index("I")
+    end)
